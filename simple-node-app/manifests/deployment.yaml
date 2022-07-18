@@ -33,14 +33,14 @@ spec:
           httpGet:
             path: /health
             port: 3000
-          initialDelaySeconds: 15
-          timeoutSeconds: 1
+          initialDelaySeconds: 45
+          timeoutSeconds: 30
         livenessProbe:
           httpGet:
             path: /health
             port: 3000
-          initialDelaySeconds: 15
-          timeoutSeconds: 1
+          initialDelaySeconds: 45
+          timeoutSeconds: 30
       restartPolicy: Always
       imagePullSecrets:
       - name: sandbox-k8s-apps
