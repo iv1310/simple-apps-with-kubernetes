@@ -20,6 +20,7 @@ pipeline {
 			steps {
 				withCredentials([string(credentialsId: 'b38c2444-c9e2-4893-afb6-593e3b46ec37', variable: 'CR_PAT')]) {
 					sh """
+						echo ${CR_PAT} | docker login ghbr.io -u iv1310 --password-stdin
 						_MODULE=autoapp ./build-push-image.sh ghcr.io/iv1310 ${BUILD_NUMBER}
 						_MODULE=simple-node-app ./build-push-image.sh ghcr.io/iv1310 ${BUILD_NUMBER}
 					"""
