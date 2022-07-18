@@ -1,7 +1,7 @@
 #!groovy
 
 pipeline {
-	//agent { node { label 'slave' } }
+	agent any
 	options {
 		timestamps()
 		ansiColor('xterm')
