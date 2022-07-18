@@ -1,0 +1,8 @@
+version: "3"
+services:
+  builder:
+    image: golang:1.12.1-alpine
+    command: ./build.sh
+    working_dir: /src/
+    volumes:
+      - "./:/src/"

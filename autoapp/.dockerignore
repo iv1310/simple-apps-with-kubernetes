@@ -1,0 +1,12 @@
+.git
+.gitignore
+*.out
+assets
+bin
+build
+deployments
+docs
+LICENSE
+Makefile
+README.md
+vendor
