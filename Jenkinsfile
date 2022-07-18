@@ -9,12 +9,6 @@ pipeline {
 	}
 
 	stages {
-		stage("Checkout") {
-			steps {
-				cleanWs()
-				checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'ddb12ac2-9b29-4bbf-a47a-bf6356139a46', url: 'git@github.com:iv1310/simple-kubernetes-github-action.git']]])
-			}
-		}
 		stage("Build") {
 			steps {
 				sh """
