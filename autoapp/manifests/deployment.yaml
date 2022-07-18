@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: goapp
+    environment: sandbox
+  name: goapp
+  namespace: sandbox
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: goapp
+      environment: sandbox
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 2
+  template:
+    metadata:
+      labels:
+        app: goapp
+        environment: sandbox
+    spec:
+      containers:
+      - image: ghcr.io/iv1310/goapp:IMAGE_TAG
+        imagePullPolicy: Always
+        name: goapp
+        ports:
+          - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: sandbox-k8s-apps

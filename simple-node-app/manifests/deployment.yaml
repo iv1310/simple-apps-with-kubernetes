@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nodeapp
+    environment: sandbox
+  name: nodeapp
+  namespace: sandbox
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nodeapp
+      environment: sandbox
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 2
+  template:
+    metadata:
+      labels:
+        app: nodeapp
+        environment: sandbox
+    spec:
+      containers:
+      - image: ghcr.io/iv1310/nodeapp:IMAGE_TAG
+        imagePullPolicy: Always
+        name: nodeapp
+        ports:
+          - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: sandbox-k8s-apps

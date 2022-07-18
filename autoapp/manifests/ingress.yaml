@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: goapp-ingress
+  namespace: sandbox
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  - host: goapp-65.21.235.195.nip.io
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: goapp-svc
+            servicePort: 8080
